@@ -1,0 +1,5 @@
+FROM        scratch
+
+ADD         ./scala-graal-assembly-0.1.0-SNAPSHOT .
+
+ENTRYPOINT  ["./scala-graal-assembly-0.1.0-SNAPSHOT"]

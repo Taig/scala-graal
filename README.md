@@ -1,0 +1,1 @@
+# Sample Scala/Graal native-image application
