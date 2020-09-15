@@ -8,9 +8,11 @@ ENV     PATH $PATH:/usr/local/musl/bin/
 RUN     curl -L https://musl.libc.org/releases/musl-1.2.1.tar.gz | tar -xz -C ./musl/ --strip-components=1
 RUN     cd ./musl/ && ./configure --disable-shared --prefix=/usr/local/musl/ && make && make install
 RUN     rm -r /musl/
+RUN     cp /usr/lib/gcc/x86_64-redhat-linux/4.8.2/libstdc++.a usr/local/musl/lib/
 
+ENV     CC="musl-gcc"
 RUN     curl -L https://zlib.net/zlib-1.2.11.tar.gz | tar -xz -C ./zlib/ --strip-components=1
-RUN     export CC=musl-gcc && cd ./zlib/ && ./configure --static --prefix=/usr/local/musl/ && make && make install
+RUN     cd ./zlib/ && ./configure --static --prefix=/usr/local/musl/ && make && make install
 RUN     rm -r /zlib/
 
 CMD     native-image -jar ./target/scala-2.13/scala-graal-assembly-0.1.0-SNAPSHOT.jar
